@@ -13,37 +13,33 @@
   if (error) {
     document.body.innerText = "OAuth Error: " + error;
     window.location.href = "feeflow://whatsapp?error=" + error;
-    return;
-  }
-
-  if (!code) {
+  } else if (!code) {
     document.body.innerText = "No code received";
-    return;
+  } else {
+    const controller = new AbortController();
+    setTimeout(() => controller.abort(), 8000); // timeout safety
+
+    fetch("https://feeflow-b4ot.onrender.com/api/meta/exchange", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ code }),
+      signal: controller.signal
+    })
+    .then(res => {
+      console.log("Backend status:", res.status);
+      return res.json();
+    })
+    .then(data => {
+      console.log("Backend success:", data);
+      document.body.innerText = "Connected successfully";
+      window.location.href = "feeflow://whatsapp?status=success";
+    })
+    .catch(err => {
+      console.error("Fetch failed:", err);
+      document.body.innerText = "Backend call failed";
+      window.location.href = "feeflow://whatsapp?error=server_error";
+    });
   }
-
-  const controller = new AbortController();
-  setTimeout(() => controller.abort(), 8000); // 8s timeout
-
-  fetch("https://feeflow-b4ot.onrender.com/api/meta/exchange", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ code }),
-    signal: controller.signal
-  })
-  .then(res => {
-    console.log("Status:", res.status);
-    return res.json();
-  })
-  .then(data => {
-    console.log("Success:", data);
-    document.body.innerText = "Connected successfully";
-    window.location.href = "feeflow://whatsapp?status=success";
-  })
-  .catch(err => {
-    console.error("Fetch failed:", err);
-    document.body.innerText = "Backend call failed";
-    window.location.href = "feeflow://whatsapp?error=server_error";
-  });
 </script>
