@@ -1,36 +1,49 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>Processing...</title>
-</head>
-<body>
 <script>
+  console.log("Callback page loaded");
+
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
   const error = params.get("error");
 
+  console.log("Code:", code);
+  console.log("Error:", error);
+
+  document.body.innerText = "Processing...";
+
   if (error) {
+    document.body.innerText = "OAuth Error: " + error;
     window.location.href = "feeflow://whatsapp?error=" + error;
+    return;
   }
 
-  if (code) {
-    fetch("https://feeflow-b4ot.onrender.com/api/meta/exchange", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ code: code })
-    })
-    .then(res => res.json())
-    .then(data => {
-      window.location.href = "feeflow://whatsapp?status=success";
-    })
-    .catch(err => {
-      window.location.href = "feeflow://whatsapp?error=server_error";
-    });
+  if (!code) {
+    document.body.innerText = "No code received";
+    return;
   }
+
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), 8000); // 8s timeout
+
+  fetch("https://feeflow-b4ot.onrender.com/api/meta/exchange", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ code }),
+    signal: controller.signal
+  })
+  .then(res => {
+    console.log("Status:", res.status);
+    return res.json();
+  })
+  .then(data => {
+    console.log("Success:", data);
+    document.body.innerText = "Connected successfully";
+    window.location.href = "feeflow://whatsapp?status=success";
+  })
+  .catch(err => {
+    console.error("Fetch failed:", err);
+    document.body.innerText = "Backend call failed";
+    window.location.href = "feeflow://whatsapp?error=server_error";
+  });
 </script>
-</body>
-</html>
-
