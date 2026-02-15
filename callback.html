@@ -1,4 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Processing...</title>
+</head>
+<body>
+
 <script>
+document.addEventListener("DOMContentLoaded", () => {
+
   console.log("Callback page loaded");
 
   const params = new URLSearchParams(window.location.search);
@@ -13,33 +23,35 @@
   if (error) {
     document.body.innerText = "OAuth Error: " + error;
     window.location.href = "feeflow://whatsapp?error=" + error;
-  } else if (!code) {
-    document.body.innerText = "No code received";
-  } else {
-    const controller = new AbortController();
-    setTimeout(() => controller.abort(), 8000); // timeout safety
-
-    fetch("https://feeflow-b4ot.onrender.com/api/meta/exchange", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ code }),
-      signal: controller.signal
-    })
-    .then(res => {
-      console.log("Backend status:", res.status);
-      return res.json();
-    })
-    .then(data => {
-      console.log("Backend success:", data);
-      document.body.innerText = "Connected successfully";
-      window.location.href = "feeflow://whatsapp?status=success";
-    })
-    .catch(err => {
-      console.error("Fetch failed:", err);
-      document.body.innerText = "Backend call failed";
-      window.location.href = "feeflow://whatsapp?error=server_error";
-    });
+    return;
   }
+
+  if (!code) {
+    document.body.innerText = "No code received";
+    return;
+  }
+
+  fetch("https://feeflow-b4ot.onrender.com/api/meta/exchange", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ code })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("Backend success:", data);
+    document.body.innerText = "Connected successfully";
+    window.location.href = "feeflow://whatsapp?status=success";
+  })
+  .catch(err => {
+    console.error("Fetch failed:", err);
+    document.body.innerText = "Backend call failed";
+    window.location.href = "feeflow://whatsapp?error=server_error";
+  });
+
+});
 </script>
+
+</body>
+</html>
