@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FeeFlow | MaverickBits</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #2563eb;
+  --secondary: #1e40af;
+  --bg: #f8fafc;
+  --dark: #0f172a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+/* ---------- HEADER ---------- */
+header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 90px 20px 120px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: var(--bg);
+  border-radius: 100% 100% 0 0;
+}
+
+header h1 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+}
+
+header span {
+  display: block;
+  opacity: 0.9;
+  margin-top: 10px;
+}
+
+header .btn {
+  margin-top: 35px;
+  padding: 14px 38px;
+  border-radius: 40px;
+  border: none;
+  font-weight: 600;
+  background: white;
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+header .btn:hover {
+  transform: scale(1.1);
+  background: #e0e7ff;
+}
+
+/* ---------- SECTIONS ---------- */
+section {
+  max-width: 1100px;
+  margin: auto;
+  padding: 70px 20px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  margin-bottom: 15px;
+}
+
+.section-subtitle {
+  text-align: center;
+  max-width: 700px;
+  margin: auto;
+  opacity: 0.75;
+}
+
+/* ---------- CARDS ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+  transition: all 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 45px rgba(0,0,0,0.15);
+}
+
+.card svg {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 15px;
+  fill: var(--primary);
+}
+
+/* ---------- COMING SOON ---------- */
+.coming-soon {
+  background: linear-gradient(135deg, #020617, #1e293b);
+  color: white;
+  text-align: center;
+  padding: 70px 25px;
+  border-radius: 25px;
+}
+
+.coming-soon h2 {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  margin-bottom: 20px;
+}
+
+.coming-soon p {
+  max-width: 750px;
+  margin: auto;
+  opacity: 0.85;
+}
+
+/* ---------- CONTACT ---------- */
+.contact {
+  text-align: center;
+}
+
+.contact a {
+  margin-top: 25px;
+  display: inline-block;
+  padding: 16px 40px;
+  background: var(--primary);
+  color: white;
+  border-radius: 40px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact a:hover {
+  transform: scale(1.1);
+  background: var(--secondary);
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  background: #020617;
+  color: #cbd5f5;
+  text-align: center;
+  padding: 30px 15px;
+  font-size: 14px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  header {
+    padding: 70px 20px 100px;
+  }
+  section {
+    padding: 60px 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>FeeFlow</h1>
+  <span>by MaverickBits</span>
+  <span>WhatsApp Payment Notifications for Gyms</span>
+  <button class="btn">Launching Soon 🚀</button>
+</header>
+
+<section>
+  <h2 class="section-title">What is FeeFlow?</h2>
+  <p class="section-subtitle">
+    FeeFlow helps gym owners automatically notify members about payments,
+    dues, and confirmations through WhatsApp.
+  </p>
+
+  <div class="cards">
+    <div class="card">
+      <svg viewBox="0 0 24 24"><path d="M12 1a11 11 0 1 0 11 11A11 11 0 0 0 12 1Zm1 17h-2v-2h2Zm0-4h-2V6h2Z"/></svg>
+      <h3>Instant Notifications</h3>
+      <p>Send real-time payment confirmations and alerts.</p>
+    </div>
+
+    <div class="card">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5Zm0 20v-9l-10-5v9Z"/></svg>
+      <h3>Built for Gyms</h3>
+      <p>Tailored for fitness centers, trainers, and memberships.</p>
+    </div>
+
+    <div class="card">
+      <svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5Z"/></svg>
+      <h3>Secure & Compliant</h3>
+      <p>Uses official WhatsApp Cloud API with Meta compliance.</p>
+    </div>
+  </div>
+</section>
+
+<section class="coming-soon">
+  <h2>Coming Soon</h2>
+  <p>
+    FeeFlow will provide a dashboard where gym owners can manage members,
+    track payments, and send automated WhatsApp notifications for:
+    payment success, dues, and overdue reminders.
+  </p>
+</section>
+
+<section>
+  <h2 class="section-title">Data Usage</h2>
+  <div class="cards">
+    <div class="card">Phone numbers are used only for gym-related notifications.</div>
+    <div class="card">No marketing spam or data resale.</div>
+    <div class="card">Messages sent only on gym owner’s request.</div>
+  </div>
+</section>
+
+<section class="contact">
+  <h2 class="section-title">Contact Us</h2>
+  <p>For support or verification inquiries</p>
+  <a href="mailto:feeflow.maverickbits@gmail.com">
+    feeflow.maverickbits@gmail.com
+  </a>
+</section>
+
+<footer>
+  © 2026 MaverickBits — FeeFlow WhatsApp Platform
+</footer>
+
+</body>
+</html>
